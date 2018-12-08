@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/bahrus/h2h-tf/issues"
   },
-  "homepage": "https://github.com/bahrus/h2h-tf#readme"
+  "homepage": "https://github.com/bahrus/h2h-tf#readme",
+  "dependencies": {
+    "xtal-latx": "0.0.84"
+  }
 }
