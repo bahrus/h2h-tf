@@ -1,5 +1,24 @@
 import { define } from 'xtal-latx/define.js';
 import { XtallatX, disabled } from 'xtal-latx/xtal-latx.js';
+export function instantiateTemplate(template, data) {
+    const instance = template.content.cloneNode(true);
+    for (const key in data) {
+        const val = data[key];
+        instance.querySelectorAll(key).forEach(el => {
+            switch (typeof val) {
+                case 'string':
+                    el.innerHTML = val;
+                    break;
+                case 'function':
+                    val(el);
+                    break;
+                case 'object':
+                    Object.assign(el, val);
+                    break;
+            }
+        });
+    }
+}
 export class H2H_TF extends XtallatX(HTMLElement) {
     constructor() {
         super(...arguments);

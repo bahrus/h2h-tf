@@ -9,6 +9,26 @@ export interface IContext{
     el: Element | null,
 }
 
+export function instantiateTemplate(template: HTMLTemplateElement, data: {[key: string] : any}){
+    const instance = template.content.cloneNode(true) as HTMLDocument;
+    for(const key in data){
+        const val = data[key];
+        instance.querySelectorAll(key).forEach(el =>{
+            switch(typeof val){
+                case 'string':
+                    el.innerHTML = val;
+                    break;
+                case 'function':
+                    val(el);
+                    break;
+                case 'object':
+                    Object.assign(el, val);
+                    break;
+            }
+        })
+    }
+}
+
 export class H2H_TF extends XtallatX(HTMLElement){
     static get is(){
         return 'h2h-tf';
@@ -37,6 +57,7 @@ export class H2H_TF extends XtallatX(HTMLElement){
     set getTarget(nv){
         this._getTarget = nv;
     }
+
 
 
     _c!: boolean;
