@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <ul class="tree">
+            <li>Animals
+                <ul>
+                    <li>Birds</li>
+                    <li>Mammals
+                        <ul>
+                            <li>Elephant</li>
+                            <li>Mouse</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <h2h-tf id='h2o'></h2h-tf>
+        <script type="module" src="../h2h-tf.js"></script>
+        <script>
+            h2o.transform = {
+                'ul': (context) =>{
+                    const div = document.createElement('div');
+                    context.leaf.appendChild(div);
+                    context.leaf = div;
+                    context.stack.push(div);
+                    context.processChildren = true;
+                }, 
+                'li': (context) =>{
+                    innerText = context.el.firstChild.nodeValue;
+                    const span = document.createElement('span');
+                    span.innerText = innerText;
+                    context.leaf.appendChild(span); 
+                    context.leaf = span;
+                    context.stack.push(span);
+                    context.processChildren = true;
+                    
+                }
+            }
+        </script>
+    </div>
+</body>
+
+</html>
