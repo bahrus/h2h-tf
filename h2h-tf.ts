@@ -29,6 +29,20 @@ export function instantiateTemplate(template: HTMLTemplateElement, data: {[key: 
     }
 }
 
+export function transfer(target: HTMLElement, source: HTMLElement, attribs: string[] | null = null){
+    Object.assign(target.dataset, source.dataset);
+    target.className = source.className;
+    if(attribs !== null){
+        attribs.forEach(attrib =>{
+            const srcAttrib = source.getAttribute(attrib);
+            if(srcAttrib !== null){
+                target.setAttribute(attrib, srcAttrib);
+            }
+            
+        })
+    }
+}
+
 export class H2H_TF extends XtallatX(HTMLElement){
     static get is(){
         return 'h2h-tf';

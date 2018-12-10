@@ -19,6 +19,18 @@ export function instantiateTemplate(template, data) {
         });
     }
 }
+export function transfer(target, source, attribs = null) {
+    Object.assign(target.dataset, source.dataset);
+    target.className = source.className;
+    if (attribs !== null) {
+        attribs.forEach(attrib => {
+            const srcAttrib = source.getAttribute(attrib);
+            if (srcAttrib !== null) {
+                target.setAttribute(attrib, srcAttrib);
+            }
+        });
+    }
+}
 export class H2H_TF extends XtallatX(HTMLElement) {
     constructor() {
         super(...arguments);

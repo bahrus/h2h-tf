@@ -10,7 +10,7 @@
 
 <body>
     <div>
-        <ul class="tree">
+        <ul class="tree" data-test="hello">
             <li>Animals
                 <ul>
                     <li>Birds</li>
@@ -29,6 +29,8 @@
             h2o.transform = {
                 'ul': (context) =>{
                     const div = document.createElement('div');
+                    debugger;
+                    Object.assign(div.dataset, context.el.dataset);
                     context.leaf.appendChild(div);
                     context.leaf = div;
                     context.stack.push(div);
