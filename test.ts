@@ -9,7 +9,7 @@ containerTemplate.innerHTML = /* html */`
         <li role='none'></li>
     </ul>
 `;
-const containerTemplatesettings : {[key: string] : string[]} = {
+const containerTemplateSettings : {[key: string] : string[]} = {
     'input': ['id', 'aria-controls', 'role', 'tabindex']
 }
 export class test_1 extends H2H_TF{
@@ -27,10 +27,10 @@ export class test_1 extends H2H_TF{
             'fieldset': (context) =>{
                 const templ = instantiateTemplate(containerTemplate, {});
                 const fs = context.el as HTMLFieldSetElement;
-                for(const key in containerTemplatesettings){
+                for(const key in containerTemplateSettings){
                     const item = templ.querySelector(key) as HTMLElement;
                     const vals = fs.dataset.attribs!.split(',');
-                    const attribs = containerTemplatesettings[key];
+                    const attribs = containerTemplateSettings[key];
                     attribs.forEach((attrib, idx) =>{
                         item.setAttribute(attrib, vals[idx]);
                     })
