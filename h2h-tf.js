@@ -13,11 +13,19 @@ export function instantiateTemplate(template, data) {
                     val(el);
                     break;
                 case 'object':
-                    Object.assign(el, val);
+                    if (Array.isArray(val)) {
+                        val.forEach(pair => {
+                            el.setAttribute(pair[0], pair[1]);
+                        });
+                    }
+                    else {
+                        Object.assign(el, val);
+                    }
                     break;
             }
         });
     }
+    return instance;
 }
 export function transfer(target, source, attribs = null) {
     Object.assign(target.dataset, source.dataset);
@@ -89,6 +97,7 @@ export class H2H_TF extends XtallatX(HTMLElement) {
         this.de('value', {
             value: this.value
         });
+        console.log(this.value);
     }
     process(target, context) {
         for (const selector in this._transform) {
