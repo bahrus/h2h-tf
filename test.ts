@@ -15,7 +15,7 @@ const containerTemplateSettings : {[key: string] : selectorAttribArray} = {
         '.': ['id', 'aria-controls', 'role', 'tabindex']
     },
     'label':{
-        'legend': ['.className', '.innerHTML']
+        'legend': ['id', '.className', '.innerHTML', 'for']
     }
 }
 export class test_1 extends H2H_TF{
@@ -58,18 +58,9 @@ export class test_1 extends H2H_TF{
                             
                         })
                     }
-                    //const rules = containerTemplateSettings[key];
-                    // rules.forEach((rule) =>{
-                    //     item.setAttribute(rule, vals[idx]);
-                    // })
+                    
                 }
-                //const legend = fs.querySelector('legend') as HTMLLegendElement;
-                //const label = templ.querySelector('label') as HTMLLabelElement;
-                //const input = templ.querySelector('input') as HTMLInputElement;
-                //label.innerHTML = legend.innerHTML;
-                //label.setAttribute('for', input.id);
-                //label.id = input.getAttribute('aria-labelledby')!;
-                // ip.id = fs.dataset.id!;
+                
                 context.leaf.appendChild(templ);
                 context.leaf = context.leaf.querySelector('li');
                 context.stack.push(context.leaf);
