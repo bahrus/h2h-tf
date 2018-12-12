@@ -8,7 +8,7 @@ containerTemplate.innerHTML = /* html */ `
         <li role='none'></li>
     </ul>
 `;
-const containerTemplatesettings = {
+const containerTemplateSettings = {
     'input': ['id', 'aria-controls', 'role', 'tabindex']
 };
 export class test_1 extends H2H_TF {
@@ -26,30 +26,23 @@ export class test_1 extends H2H_TF {
             'fieldset': (context) => {
                 const templ = instantiateTemplate(containerTemplate, {});
                 const fs = context.el;
-                for (const key in containerTemplatesettings) {
+                for (const key in containerTemplateSettings) {
                     const item = templ.querySelector(key);
                     const vals = fs.dataset.attribs.split(',');
-                    const attribs = containerTemplatesettings[key];
+                    const attribs = containerTemplateSettings[key];
                     attribs.forEach((attrib, idx) => {
                         item.setAttribute(attrib, vals[idx]);
                     });
                 }
-                // const ip = templ.querySelector('input') as HTMLInputElement;
+                const legend = fs.querySelector('legend');
+                const label = templ.querySelector('label');
+                label.innerHTML = legend.innerHTML;
                 // ip.id = fs.dataset.id!;
                 context.leaf.appendChild(templ);
                 context.leaf = context.leaf.querySelector('li');
                 context.stack.push(context.leaf);
                 context.processChildren = true;
             }
-            // 'li': (context) =>{
-            //     innerText = context.el.firstChild.nodeValue;
-            //     const span = document.createElement('span');
-            //     span.innerText = innerText;
-            //     context.leaf.appendChild(span); 
-            //     context.leaf = span;
-            //     context.stack.push(span);
-            //     context.processChildren = true;
-            // }            
         };
         super.connectedCallback();
     }

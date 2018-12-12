@@ -35,23 +35,17 @@ export class test_1 extends H2H_TF{
                         item.setAttribute(attrib, vals[idx]);
                     })
                 }
-                // const ip = templ.querySelector('input') as HTMLInputElement;
+                const legend = fs.querySelector('legend') as HTMLLegendElement;
+                const label = templ.querySelector('label') as HTMLLabelElement;
+                label.innerHTML = legend.innerHTML;
                 // ip.id = fs.dataset.id!;
                 context.leaf.appendChild(templ);
                 context.leaf = context.leaf.querySelector('li');
                 context.stack.push(context.leaf);
                 context.processChildren = true;
             }
-            // 'li': (context) =>{
-            //     innerText = context.el.firstChild.nodeValue;
-            //     const span = document.createElement('span');
-            //     span.innerText = innerText;
-            //     context.leaf.appendChild(span); 
-            //     context.leaf = span;
-            //     context.stack.push(span);
-            //     context.processChildren = true;
-                
-            // }            
+
+            
         }
         super.connectedCallback();
     }

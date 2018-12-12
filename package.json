@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/bahrus/h2h-tf#readme",
   "dependencies": {
-    "xtal-latx": "0.0.84"
+    "xtal-latx": "0.0.85"
   }
 }
