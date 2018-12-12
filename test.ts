@@ -9,8 +9,14 @@ containerTemplate.innerHTML = /* html */`
         <li role='none'></li>
     </ul>
 `;
-const containerTemplateSettings : {[key: string] : string[]} = {
-    'input': ['id', 'aria-controls', 'role', 'tabindex']
+type selectorAttribArray = {[key: string]:string[]};
+const containerTemplateSettings : {[key: string] : selectorAttribArray} = {
+    'input': {
+        '.': ['id', 'aria-controls', 'role', 'tabindex']
+    },
+    'label':{
+        'legend': ['.className', '.innerHTML']
+    }
 }
 export class test_1 extends H2H_TF{
     static get is(){return 'test-1';}
@@ -26,18 +32,43 @@ export class test_1 extends H2H_TF{
             },
             'fieldset': (context) =>{
                 const templ = instantiateTemplate(containerTemplate, {});
-                const fs = context.el as HTMLFieldSetElement;
+                //const fs = context.el as HTMLFieldSetElement;
                 for(const key in containerTemplateSettings){
                     const item = templ.querySelector(key) as HTMLElement;
-                    const vals = fs.dataset.attribs!.split(',');
-                    const attribs = containerTemplateSettings[key];
-                    attribs.forEach((attrib, idx) =>{
-                        item.setAttribute(attrib, vals[idx]);
-                    })
+                    const rules = containerTemplateSettings[key];
+                    //const vals = fs.dataset.attribs!.split(',');
+                    for(var src in rules){
+                        let srcEl: HTMLElement;
+                        if(src === '.'){
+                            srcEl = context.el as HTMLElement;
+                        }else{
+                            srcEl = context.el!.querySelector(src) as HTMLElement;
+                        }
+                        const attribs = srcEl.dataset.attribs;
+                        if(!attribs) continue;
+                        const vals = attribs.split(',');
+                        const ruleCategory = rules[src];
+
+                        ruleCategory.forEach((rule, idx) =>{
+                            if(rule.startsWith('.')){
+                                (<any>item)[rule.substr(1)] = vals[idx];
+                            }else{
+                                item.setAttribute(rule, vals[idx]);
+                            }
+                            
+                        })
+                    }
+                    //const rules = containerTemplateSettings[key];
+                    // rules.forEach((rule) =>{
+                    //     item.setAttribute(rule, vals[idx]);
+                    // })
                 }
-                const legend = fs.querySelector('legend') as HTMLLegendElement;
-                const label = templ.querySelector('label') as HTMLLabelElement;
-                label.innerHTML = legend.innerHTML;
+                //const legend = fs.querySelector('legend') as HTMLLegendElement;
+                //const label = templ.querySelector('label') as HTMLLabelElement;
+                //const input = templ.querySelector('input') as HTMLInputElement;
+                //label.innerHTML = legend.innerHTML;
+                //label.setAttribute('for', input.id);
+                //label.id = input.getAttribute('aria-labelledby')!;
                 // ip.id = fs.dataset.id!;
                 context.leaf.appendChild(templ);
                 context.leaf = context.leaf.querySelector('li');
